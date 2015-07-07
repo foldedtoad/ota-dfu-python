@@ -3,19 +3,21 @@ Python nRF51 DFU Server
 
 A python script for bluez gatttool using pexpect to achive Device Firmware Updates (DFU) to the nRF51. 
 
-It is assumed that your peripheral firmware has been build to Nordic's SDK8.x + SoftDevice 8.x
+It is assumed that your peripheral firmware has been build to Nordic's SDK8.x + SoftDevice 8.x  
 The target peripheral firmware should also include some variation of Nordic's DFU support.
 
-How you get the target periheral to enter DFU-mode (e.g. advertizing *DfuTarg*) is not handled here.  
-It is assumed you can trigger your peripheral to enter the bootloader via a hardware switch or application-trigger.
+How you get the target periheral to enter DFU-mode (e.g. advertizing *DfuTarg*) is not handled here.    
+It is assumed you can trigger your peripheral to enter the bootloader; either by a hardware switch or application-trigger.
 
 The *dfu.py* utility comes into play only after the peripheral is executing the bootloader.
 
 System:
+* Raspberry Pi - RaspberryPi B+ or later (tested with RaspPi B+)
+* Bluetooth 4.0 USB dongle - (tested with "UTechSmart" and "Plugable" BLE dongles)
 * Linux raspian - kernel 3.12.22 or later
 * bluez - 5.4 or later
 
-See https://learn.adafruit.com/pibeacon-ibeacon-with-a-raspberry-pi/setting-up-the-pi for details on building bluez.
+See [here](https://learn.adafruit.com/pibeacon-ibeacon-with-a-raspberry-pi/setting-up-the-pi "BlueZ build") for details on building bluez.
 
 This project assumes you are developing on a Linux/Unix or OSX system and deploying to a Raspberry Pi (Raspian) system. Development on Windows systems should be OK, but it hasn't been (nor will be) tested. 
 
@@ -121,5 +123,6 @@ Example of *dfu.py* Output
     State timeout
     DFU Server done
 
-**NOTE:** The final "State timeout" is due to the target peripheral rebooting, as expected, and the disconnect not getting back soon enough.  
+**NOTE:**  
+The final "State timeout" is due to the target peripheral rebooting, as expected, and the disconnect not getting back soon enough.  
 This is benign: the update should have been successful and the peripheral should have restarted and run the new firmware. 
