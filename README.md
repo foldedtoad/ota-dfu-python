@@ -1,10 +1,15 @@
-Python nrf51822 DFU uploader
+Python nRF51 DFU Server
 ============================
 
-Wrapper for bluez gatttool using pexpect to achive DFU uploads to the nrf51822. 
+A python script for bluez gatttool using pexpect to achive Device Firmware Updates (DFU) to the nRF51. 
 
-The script does not handle any notifications given by the 
-peer as it is strictly not needed for simple uploads.
+It is assumed that your peripheral firmware has been build to Nordic's SDK8.x + SoftDevice 8.x
+The target peripheral firmware should also include some variation of Nordic's DFU support.
+
+How you get the target periheral to enter DFU-mode (e.g. advertizing *DfuTarg*) is not handled here.  
+It is assumed you can trigger your peripheral to enter the bootloader via a hardware switch or application-trigger.
+
+The *dfu.py* utility comes into play only after the peripheral is executing the bootloader.
 
 System:
 * Linux raspian - kernel 3.12.22 or later
@@ -14,16 +19,19 @@ See https://learn.adafruit.com/pibeacon-ibeacon-with-a-raspberry-pi/setting-up-t
 
 This project assumes you are developing on a Linux/Unix or OSX system and deploying to a Raspberry Pi (Raspian) system. Development on Windows systems should be OK, but it hasn't been (nor will be) tested. 
 
-__Prerequisite__  
+Prerequisite
+------------
 
     sudo pip install pexpect
     sudo pip install intelhex
 
-Firmware Build Requirement -  
+Firmware Build Requirement
+--------------------------
 * Your nRF51 firmware build method will produce either a firmware hex or bin file named *application.hex* or *application.bin*.  This naming convention is per Nordics DFU specification, which is use by this DFU server as well as the Android Master Control Panel DFU, and iOS DFU app.  
 * Your nRF51 firmware build method will produce an Init file (aka *application.dat*).  Again, this is per Nordic's naming conventions. 
 
-__The *gen_dat* Utility__   
+The *gen_dat* Utility
+---------------------
 The gen_dat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gen_dat utility into your build system so that your build method will generate the dat file for each build.  
 
 Below is a snippet showing how you might use the gen_dat utility in a makefile. The *application.mk* file shows a more complete example. This makefile example shows how the gen_dat and zip files are integrated into the build process.  It is an example, and you must customize it to your requirements.
@@ -42,12 +50,14 @@ Below is a snippet showing how you might use the gen_dat utility in a makefile. 
 	-@$(GENZIP) -j $(OUTPUT_BINARY_DIRECTORY)/application.zip $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat
 
 
-__Usage__  
+Usage
+-----
 There are two ways to speicify firmware files for this OTA-DFU server. Either by specifying both the <hex or bin> file with the dat file, or more easily by the zip file, which contains both the hex and dat files.  
 The new "zip file" form is encouraged by Nordic, but the older hex+dat file methods should still work.  
 
 
-__Usage Examples__  
+Usage Examples
+--------------
 
     > sudo ./dfu.py -f ~/application.hex -d ~/application.dat -a EF:FF:D2:92:9C:2A
 
@@ -63,7 +73,8 @@ To figure out the address of DfuTarg do a 'hcitool lescan' -
     CD:E3:4A:47:1C:E4 (unknown) 
 
 
-__Example of dfu.py output__
+Example of *dfu.py* Output
+------------------------
 
     pi@raspberrypi ~/src/ota-dfu/ $ sudo ./dfu.py -z application_debug_1435008894.zip -a EF:FF:D2:92:9C:2A
     DFU Server start
@@ -110,5 +121,5 @@ __Example of dfu.py output__
     State timeout
     DFU Server done
 
-NOTE: The final "State timeout" is due to the target device rebooting, as expected, and the disconnect not getting back soon enough.  
-This is benign; the update should have been successful and the peripheral should have restarted and run the new firmware.
+**NOTE:** The final "State timeout" is due to the target peripheral rebooting, as expected, and the disconnect not getting back soon enough.  
+This is benign: the update should have been successful and the peripheral should have restarted and run the new firmware. 
