@@ -18,6 +18,10 @@ Prerequisite -
     sudo pip install pexpect
     sudo pip install intelhex
 
+Firmware Build Requirement -  
+* Your nRF51 firmware build method will produce either a firmware hex or bin file named "application.hex" or "application.bin".  This naming convention is per Nordics DFU specification, which is use by this DFU server as well as the Android Master Control Panel DFU, and iOS DFU app.  
+* Your nRF51 firmware build method will produce an Init file (aka "application.dat".  Again, this is per Nordic's naming conventions. 
+
 Usage -  
     sudo ./dfu.py -f \<hex_file> -d \<dat_file> -a \<ble-address\>  or  
     sudo ./dfu.py -z \<zip_file> -a \<ble-address\> 
