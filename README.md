@@ -22,8 +22,16 @@ Firmware Build Requirement -
 * Your nRF51 firmware build method will produce either a firmware hex or bin file named "application.hex" or "application.bin".  This naming convention is per Nordics DFU specification, which is use by this DFU server as well as the Android Master Control Panel DFU, and iOS DFU app.  
 * Your nRF51 firmware build method will produce an Init file (aka "application.dat".  Again, this is per Nordic's naming conventions. 
 
-The "gendat" Utility -   
-The gendat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gendat utility into your build system so that your build method will generat the dat file for each build. 
+The "gen_dat" Utility -   
+The gen_dat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gen_dat utility into your build system so that your build method will generate the dat file for each build.  
+
+Below is a snippet showing how you might use the gen_dat utility in a makefile.
+
+    # Create .dat file from the .bin file
+    gendat: 
+	    @echo Preparing: application.dat
+	    $(NO_ECHO)$(GENDAT) $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat 
+
 
 Usage -
 There are two ways to speicify firmware files for this OTA-DFU server. Either by specifying both the <hex or bin> file with the dat file, or more easily by the zip file, which contains both the hex and dat files.  
