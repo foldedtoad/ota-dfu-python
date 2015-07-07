@@ -22,11 +22,15 @@ Firmware Build Requirement -
 * Your nRF51 firmware build method will produce either a firmware hex or bin file named "application.hex" or "application.bin".  This naming convention is per Nordics DFU specification, which is use by this DFU server as well as the Android Master Control Panel DFU, and iOS DFU app.  
 * Your nRF51 firmware build method will produce an Init file (aka "application.dat".  Again, this is per Nordic's naming conventions. 
 
-Usage -  
-    sudo ./dfu.py -f \<hex_file> -d \<dat_file> -a \<ble-address\>  or  
-    sudo ./dfu.py -z \<zip_file> -a \<ble-address\> 
-    
-Example -  
+The "gendat" Utility -   
+The gendat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gendat utility into your build system so that your build method will generat the dat file for each build. 
+
+Usage -
+There are two ways to speicify firmware files for this OTA-DFU server. Either by specifying both the <hex or bin> file with the dat file, or more easily by the zip file, which contains both the hex and dat files.  
+The new "zip file" form is encouraged by Nordic, but the older hex+dat file methods should still work.  
+
+
+Usage Examples -  
 
     > sudo ./dfu.py -f ~/application.hex -d ~/application.dat -a EF:FF:D2:92:9C:2A
 
