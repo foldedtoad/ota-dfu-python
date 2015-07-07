@@ -29,8 +29,8 @@ Below is a snippet showing how you might use the gen_dat utility in a makefile.
 
     # Create .dat file from the .bin file
     gendat: 
-	    @echo Preparing: application.dat
-	    $(NO_ECHO)$(GENDAT) $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat 
+        @echo Preparing: application.dat
+        $(NO_ECHO)$(GENDAT) $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat 
 
 
 Usage -
