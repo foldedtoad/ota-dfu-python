@@ -1,8 +1,7 @@
 Python nrf51822 DFU uploader
 ============================
 
-Wrapper for bluez gatttool using pexpect to achive DFU 
-uploads to the nrf51822. 
+Wrapper for bluez gatttool using pexpect to achive DFU uploads to the nrf51822. 
 
 The script does not handle any notifications given by the 
 peer as it is strictly not needed for simple uploads.
@@ -12,6 +11,8 @@ System:
 * bluez - 5.4 or later
 
 See https://learn.adafruit.com/pibeacon-ibeacon-with-a-raspberry-pi/setting-up-the-pi for details on building bluez.
+
+This project assumes you are developing on a Linux/Unix or OSX system and deploying to a Raspberry Pi (Raspian) system. Development on Windows systems should be OK, but it hasn't been (nor will be) tested. 
 
 Prerequisite -  
 
@@ -25,12 +26,20 @@ Firmware Build Requirement -
 The "gen_dat" Utility -  
 The gen_dat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gen_dat utility into your build system so that your build method will generate the dat file for each build.  
 
-Below is a snippet showing how you might use the gen_dat utility in a makefile.
+Below is a snippet showing how you might use the gen_dat utility in a makefile. The "application.mk" file shows a more complete example. This makefile example shows how the gen_dat and zip files are integrated into the build process.
 
+    GENZIP   := zip
+    GENDAT   := ./gen_dat
+    
     # Create .dat file from the .bin file
     gendat: 
         @echo Preparing: application.dat
         $(NO_ECHO)$(GENDAT) $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat 
+    
+    # Create .zip file from .bin and .dat files
+    genzip: 
+	@echo Preparing: $(OUTPUT_NAME).zip
+	-@$(GENZIP) -j $(OUTPUT_BINARY_DIRECTORY)/application.zip $(OUTPUT_BINARY_DIRECTORY)/application.bin $(OUTPUT_BINARY_DIRECTORY)/application.dat
 
 
 Usage -
