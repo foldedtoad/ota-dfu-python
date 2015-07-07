@@ -61,3 +61,51 @@ To figure out the address of DfuTarg do a 'hcitool lescan' -
     LE Scan ...   
     CD:E3:4A:47:1C:E4 DfuTarg  
     CD:E3:4A:47:1C:E4 (unknown) 
+
+
+Example of dfu.py output -
+
+    pi@raspberrypi ~/src/ota-dfu/ $ sudo ./dfu.py -z application_debug_1435008894.zip -a EF:FF:D2:92:9C:2A
+    DFU Server start
+    unzip_dir: /tmp/application_debug_1435008894_nzjesh
+    input_setup
+    bin array size:  72352
+    scan_and_connect
+    dfu_send_image
+    [0, 0, 0, 0, 0, 0, 0, 0, 160, 26, 1, 0]
+    Sending hex file size
+    oper: RESPONSE, proc: START, status: SUCCESS
+    dfu_send_info
+    PKT_RCPT:      200
+    PKT_RCPT:      400
+    PKT_RCPT:      600
+    PKT_RCPT:      800
+    PKT_RCPT:     1000
+    PKT_RCPT:     1200
+    PKT_RCPT:     1400
+    PKT_RCPT:     1600
+    PKT_RCPT:     1800
+    PKT_RCPT:     2000
+    PKT_RCPT:     2200
+    PKT_RCPT:     2400
+    PKT_RCPT:     2600
+    PKT_RCPT:     2800
+    PKT_RCPT:     3000
+      ...
+      ...
+      ...
+    PKT_RCPT:    69800
+    PKT_RCPT:    70000
+    PKT_RCPT:    70200
+    PKT_RCPT:    70400
+    PKT_RCPT:    70600
+    PKT_RCPT:    70800
+    PKT_RCPT:    71000
+    PKT_RCPT:    71200
+    PKT_RCPT:    71400
+    PKT_RCPT:    71600
+    PKT_RCPT:    71800
+    PKT_RCPT:    72000
+    PKT_RCPT:    72200
+    State timeout
+    DFU Server done
