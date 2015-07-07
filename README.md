@@ -26,7 +26,7 @@ Firmware Build Requirement -
 The "gen_dat" Utility -  
 The gen_dat utility will read your build method's hex file and produce a dat file.  The utility is written the C-language, but should be easy to rebuild: just follow the directions at the top of the source file. Ideally, you would incorporate the gen_dat utility into your build system so that your build method will generate the dat file for each build.  
 
-Below is a snippet showing how you might use the gen_dat utility in a makefile. The "application.mk" file shows a more complete example. This makefile example shows how the gen_dat and zip files are integrated into the build process.
+Below is a snippet showing how you might use the gen_dat utility in a makefile. The "application.mk" file shows a more complete example. This makefile example shows how the gen_dat and zip files are integrated into the build process.  It is an example, and you must customize it to your requirements.
 
     GENZIP   := zip
     GENDAT   := ./gen_dat
