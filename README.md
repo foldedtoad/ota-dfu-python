@@ -1,7 +1,12 @@
 Python nRF51 DFU Server
 ============================
 
-A python script for bluez gatttool using pexpect to achive Device Firmware Updates (DFU) to the nRF51. 
+A python script for bluez gatttool using pexpect to achive Device Firmware Updates (DFU) to the nRF51.  
+The host system is assumed to be some flavor of Linux, and was developed with the Raspberry-Pi as the primary hosting system.
+
+**NOTE:**   
+This is probably not a beginner's project.  
+Peripheral firmware updating is a complex process, requiring several critical development support steps not covered here.
 
 It is assumed that your peripheral firmware has been build to Nordic's SDK8.x + SoftDevice 8.x  
 The target peripheral firmware should also include some variation of Nordic's DFU support.
