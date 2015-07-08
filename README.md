@@ -6,7 +6,7 @@ The host system is assumed to be some flavor of Linux, and was developed with th
 
 **NOTE:**   
 This is probably not a beginner's project.  
-Peripheral firmware updating is a complex process, requiring several critical development support steps not covered here.
+Peripheral firmware updating is a complex process, requiring several critical development support steps, not covered here, before the *dfu.py* utility can be used.
 
 It is assumed that your peripheral firmware has been build to Nordic's SDK8.x + SoftDevice 8.x  
 The target peripheral firmware should also include some variation of Nordic's DFU support.
